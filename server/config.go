@@ -1,5 +1,11 @@
 package server
 
+var (
+	DefaultPort       = ":11111"
+	DefaultSaveFolder = "./resources"
+	DefaultWorkers    = 5
+)
+
 type Config struct {
 	// Listen port
 	//
@@ -9,11 +15,16 @@ type Config struct {
 	//
 	// Default '/resources'
 	ServeFolder string
+	// The number of workers who download content in parallel
+	//
+	// Default 5
+	ParallelWorkers int
 }
 
 func NewConfig() Config {
 	return Config{
-		Port:        ":11111",
-		ServeFolder: "/resources",
+		Port:            DefaultPort,
+		ServeFolder:     DefaultSaveFolder,
+		ParallelWorkers: DefaultWorkers,
 	}
 }

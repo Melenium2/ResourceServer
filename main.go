@@ -24,16 +24,21 @@ func main() {
 	var (
 		resourcePath      string
 		parallelUploading int
+		port              string
 	)
 
-	flag.StringVar(&resourcePath, "path", "./resources", "path to resource folder in filesystem")
-	flag.IntVar(&parallelUploading, "parallel", 5, "number of workers for concurrency uploading")
+	flag.StringVar(&resourcePath, "path", server.DefaultSaveFolder, "path to resource folder in filesystem")
+	flag.IntVar(&parallelUploading, "parallel", server.DefaultWorkers, "number of workers for concurrency uploading")
+	flag.StringVar(&port, "port", server.DefaultPort, "listening port")
 	flag.Parse()
 
 	app := fiber.New()
 	config := server.NewConfig()
-	config.ServeFolder = resourcePath
-	log.Println(config.ServeFolder)
+	{
+		config.ServeFolder = resourcePath
+		config.ParallelWorkers = parallelUploading
+		config.Port = port
+	}
 	workService := service.New(config.ServeFolder, parallelUploading)
 	serv := server.New(app, workService, config)
 	_ = serv.InitRoutes()

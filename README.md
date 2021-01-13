@@ -53,9 +53,14 @@ $ make run
 ```
 or
 ```sh
-$ ./cmd/main -path (optional)
+$ ./cmd/main -path (optional) -parallel(optional) -port (optional)
 ```
 `-path` - the path to the folder where you will store the images after upload
 By default path is `./resources`
+
+`-parallel` - the maximum number of workers who download content in parallel
+By default `5`
+
+`-port` Listening port. By default `:11111`
 
 
