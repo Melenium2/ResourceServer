@@ -28,8 +28,15 @@ Response (a hash map of the given url for the new filename):
     ...
 }
 ```
-### GET /
-In development
+### GET /{filename}
+This endpoint return the image by passed filename in url path.
+For example:
+```
+    http://localhost:11111/imagefileinmd5format.png
+```
+Then you will receive an image with this name
+### GET /docs/index.html
+This endpoint is responsible for the swagger documentation. 
 ## Installation
 ### Docker
 Solution still in developing. Dockerfile will be added after all features are complete.

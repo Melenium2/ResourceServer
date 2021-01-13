@@ -1,0 +1,156 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Server for downloading images from a URL in a local folder. With the further ability to receive these images by a special assigned name.",
+        "title": "Resource Server",
+        "contact": {
+            "name": "Melenium2",
+            "email": "osumelenium@gmail.com"
+        },
+        "version": "0.1"
+    },
+    "basePath": "/",
+    "paths": {
+        "/load": {
+            "get": {
+                "description": "Upload single image and get his name",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "load"
+                ],
+                "summary": "Upload single image and get his name",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Image url for uploading",
+                        "name": "link",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/load/batch": {
+            "post": {
+                "description": "Loading multiple images and getting its name as a map",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "load"
+                ],
+                "summary": "Loading multiple images and getting its name as a map",
+                "parameters": [
+                    {
+                        "description": "Pass images urls",
+                        "name": "images",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/{filename}": {
+            "get": {
+                "description": "Get image by filename",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "image/png",
+                    " image/jpg"
+                ],
+                "tags": [
+                    "load"
+                ],
+                "summary": "Get image by filename",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Image name",
+                        "name": "filename",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

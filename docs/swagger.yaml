@@ -1,0 +1,104 @@
+basePath: /
+info:
+  contact:
+    email: osumelenium@gmail.com
+    name: Melenium2
+  description: Server for downloading images from a URL in a local folder. With the
+    further ability to receive these images by a special assigned name.
+  title: Resource Server
+  version: "0.1"
+paths:
+  /{filename}:
+    get:
+      consumes:
+      - application/json
+      description: Get image by filename
+      parameters:
+      - description: Image name
+        in: path
+        name: filename
+        required: true
+        type: string
+      produces:
+      - image/png
+      - ' image/jpg'
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Get image by filename
+      tags:
+      - load
+  /load:
+    get:
+      consumes:
+      - application/json
+      description: Upload single image and get his name
+      parameters:
+      - description: Image url for uploading
+        in: query
+        name: link
+        required: true
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Upload single image and get his name
+      tags:
+      - load
+  /load/batch:
+    post:
+      consumes:
+      - application/json
+      description: Loading multiple images and getting its name as a map
+      parameters:
+      - description: Pass images urls
+        in: body
+        name: images
+        required: true
+        schema:
+          items:
+            type: string
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Loading multiple images and getting its name as a map
+      tags:
+      - load
+swagger: "2.0"

@@ -150,3 +150,46 @@ func TestServer(t *testing.T) {
 
 	_ = os.RemoveAll(c.ServeFolder)
 }
+
+// Test works. Image returned. But i can't remove directory  with images
+// because has error 'resource busy'. I don't know what to do with this problem yet.
+//
+//func TestServer_ServingFiles_ShouldGetImageByName(t *testing.T) {
+//	app := fiber.New()
+//	c := NewConfig()
+//	c.ServeFolder = "./resources"
+//	worker := service.New(c.ServeFolder, 5)
+//	server := New(app, worker, c)
+//	_ = server.InitRoutes()
+//
+//	var servingFilename string
+//	{
+//		req, _ := http.NewRequest("GET", "/load", nil)
+//		{
+//			q := req.URL.Query()
+//			q.Add("link", pictures[0])
+//			req.URL.RawQuery = q.Encode()
+//		}
+//		res, err := server.app.Test(req, -1)
+//		assert.NoError(t, err)
+//
+//		b, _ := ioutil.ReadAll(res.Body)
+//		_ = res.Body.Close()
+//
+//		servingFilename = string(b)
+//		assert.NotEmpty(t, servingFilename)
+//	}
+//	{
+//		servingFilename = strings.ReplaceAll(servingFilename, "\"", "")
+//		req, _ := http.NewRequest("GET", fmt.Sprintf("/%s", servingFilename), nil)
+//		res, err := server.app.Test(req, -1)
+//		assert.NoError(t, err)
+//
+//		b, _ := ioutil.ReadAll(res.Body)
+//		_ = res.Body.Close()
+//		assert.NotNil(t, b)
+//		assert.True(t, strings.Contains(string(b), "PNG"))
+//	}
+//
+//	assert.NoError(t, os.RemoveAll(c.ServeFolder))
+//}
