@@ -21,15 +21,20 @@ import (
 
 // @BasePath /
 func main() {
-	var resourcePath string
+	var (
+		resourcePath      string
+		parallelUploading int
+	)
+
 	flag.StringVar(&resourcePath, "path", "./resources", "path to resource folder in filesystem")
+	flag.IntVar(&parallelUploading, "parallel", 5, "number of workers for concurrency uploading")
 	flag.Parse()
 
 	app := fiber.New()
 	config := server.NewConfig()
 	config.ServeFolder = resourcePath
 	log.Println(config.ServeFolder)
-	workService := service.New(config.ServeFolder, 5)
+	workService := service.New(config.ServeFolder, parallelUploading)
 	serv := server.New(app, workService, config)
 	_ = serv.InitRoutes()
 
