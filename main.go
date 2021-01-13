@@ -13,7 +13,7 @@ import (
 )
 
 // @title Resource Server
-// @version 0.1
+// @version 0.2
 // @description Server for downloading images from a URL in a local folder. With the further ability to receive these images by a special assigned name.
 
 // @contact.name Melenium2

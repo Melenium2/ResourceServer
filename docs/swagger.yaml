@@ -6,7 +6,7 @@ info:
   description: Server for downloading images from a URL in a local folder. With the
     further ability to receive these images by a special assigned name.
   title: Resource Server
-  version: "0.1"
+  version: "0.2"
 paths:
   /content/{filename}:
     get:
@@ -55,7 +55,8 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            additionalProperties: true
+            type: object
         "404":
           description: Not Found
           schema:

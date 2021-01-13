@@ -40,7 +40,7 @@ func (s *Server) loadServingRoot(ctx *fiber.Ctx) error {
 // @Accept json
 // @Produce text/plain
 // @Param link query string true "Image url for uploading"
-// @Success 200 {string} string
+// @Success 200 {object} map[string]interface{}
 // @Failure 404 {string} string
 // @Failure 500 {string} string
 // @Router /load [get]
@@ -54,7 +54,10 @@ func (s *Server) loadRoute(ctx *fiber.Ctx) error {
 		return sendError(ctx, err, 404)
 	}
 
-	return ctx.SendString(r)
+	return ctx.JSON(fiber.Map{
+		"request_link": link,
+		"filename":     r,
+	})
 }
 
 // @Summary Loading multiple images and getting its name as a map
@@ -71,7 +74,7 @@ func (s *Server) loadBatchRoute(ctx *fiber.Ctx) error {
 	var links []string
 
 	err := json.Unmarshal(ctx.Body(), &links)
-	if err != nil  {
+	if err != nil {
 		return sendError(ctx, err, 404)
 	}
 
