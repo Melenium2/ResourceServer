@@ -8,7 +8,7 @@ info:
   title: Resource Server
   version: "0.1"
 paths:
-  /{filename}:
+  /content/{filename}:
     get:
       consumes:
       - application/json

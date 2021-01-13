@@ -27,6 +27,51 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/content/{filename}": {
+            "get": {
+                "description": "Get image by filename",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "image/png",
+                    " image/jpg"
+                ],
+                "tags": [
+                    "load"
+                ],
+                "summary": "Get image by filename",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Image name",
+                        "name": "filename",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/load": {
             "get": {
                 "description": "Upload single image and get his name",
@@ -106,51 +151,6 @@ var doc = `{
                             "additionalProperties": {
                                 "type": "string"
                             }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/{filename}": {
-            "get": {
-                "description": "Get image by filename",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "image/png",
-                    " image/jpg"
-                ],
-                "tags": [
-                    "load"
-                ],
-                "summary": "Get image by filename",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Image name",
-                        "name": "filename",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "string"
                         }
                     },
                     "404": {

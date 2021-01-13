@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/gofiber/fiber/v2"
+	"path"
 )
 
 func sendError(ctx *fiber.Ctx, err error, code int) error {
@@ -20,9 +21,17 @@ func sendError(ctx *fiber.Ctx, err error, code int) error {
 // @Success 200 {string} string
 // @Failure 404 {string} string
 // @Failure 500 {string} string
-// @Router /{filename} [get]
-func (s *Server) loadServingRoot() string {
-	return s.servingFolder
+// @Router /content/{filename} [get]
+func (s *Server) loadServingRoot(ctx *fiber.Ctx) error {
+	filename := ctx.Params("filename")
+	if filename == "" {
+		return sendError(ctx, errors.New("empty filename"), 404)
+	}
+	ext := path.Ext(filename)
+	if ext == "" {
+		filename += ".jpg"
+	}
+	return ctx.SendFile(path.Join(s.servingFolder, filename), true)
 }
 
 // @Summary Upload single image and get his name
@@ -45,7 +54,7 @@ func (s *Server) loadRoute(ctx *fiber.Ctx) error {
 		return sendError(ctx, err, 404)
 	}
 
-	return ctx.JSON(r)
+	return ctx.SendString(r)
 }
 
 // @Summary Loading multiple images and getting its name as a map

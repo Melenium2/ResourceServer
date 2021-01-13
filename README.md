@@ -28,11 +28,11 @@ Response (a hash map of the given url for the new filename):
     ...
 }
 ```
-### GET /{filename}
+### GET /content/{filename}
 This endpoint return the image by passed filename in url path.
 For example:
 ```
-    http://localhost:11111/imagefileinmd5format.png
+    http://localhost:11111/content/imagefileinmd5format.png
 ```
 Then you will receive an image with this name
 ### GET /docs/index.html

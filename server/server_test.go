@@ -181,15 +181,16 @@ func TestServer(t *testing.T) {
 //	}
 //	{
 //		servingFilename = strings.ReplaceAll(servingFilename, "\"", "")
-//		req, _ := http.NewRequest("GET", fmt.Sprintf("/%s", servingFilename), nil)
+//		req, _ := http.NewRequest("GET", fmt.Sprintf("/content/%s", servingFilename), nil)
 //		res, err := server.app.Test(req, -1)
 //		assert.NoError(t, err)
 //
 //		b, _ := ioutil.ReadAll(res.Body)
 //		_ = res.Body.Close()
 //		assert.NotNil(t, b)
+//
 //		assert.True(t, strings.Contains(string(b), "PNG"))
 //	}
-//
-//	assert.NoError(t, os.RemoveAll(c.ServeFolder))
+	// Not working in this test
+	//assert.NoError(t, os.RemoveAll(c.ServeFolder))
 //}

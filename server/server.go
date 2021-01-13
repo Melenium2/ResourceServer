@@ -15,8 +15,6 @@ type Server struct {
 	service       service.Service
 }
 
-// Нужно доделать фичу чтоб можно было искать
-// изображение только по названию без расщирения
 func (s *Server) InitRoutes() error {
 	s.app.Use(cors.New())
 	s.app.Use(logger.New(logger.Config{
@@ -25,8 +23,7 @@ func (s *Server) InitRoutes() error {
 		TimeZone:   "UTC",
 	}))
 
-	s.app.Static("/", s.loadServingRoot())
-
+	s.app.Get("/content/:filename", s.loadServingRoot)
 	s.app.Get("/docs/*", swagger.Handler)
 	s.app.Get("/load", s.loadRoute)
 
