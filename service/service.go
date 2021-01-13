@@ -23,16 +23,16 @@ type ResourceService struct {
 
 // Load function, upload resource by given string and return
 // name of uploaded resource. If there was an error
-// retry function tries to upload anyway. Mat attempts 10.
+// retry function tries to upload anyway. Mat attempts 4.
 func (r *ResourceService) Load(ctx context.Context, link string) (string, error) {
 	var (
 		filename string
 		err      error
 		options  = []retry.Option{
 			retry.WithLinearFunc(),
-			retry.WithMaxRetryTime(time.Second * 2),
-			retry.WithRetryIntensity(time.Millisecond * 125),
-			retry.WithMaxAttempts(6),
+			retry.WithMaxRetryTime(time.Second * 1),
+			retry.WithRetryIntensity(time.Millisecond * 100),
+			retry.WithMaxAttempts(4),
 		}
 	)
 	err = retry.Go(func() error {

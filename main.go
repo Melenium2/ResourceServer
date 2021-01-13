@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "ResourceServer/docs"
 	"ResourceServer/server"
 	"ResourceServer/service"
 	"flag"
@@ -8,8 +9,6 @@ import (
 	"log"
 	"os"
 	"os/signal"
-
-	_ "ResourceServer/docs"
 )
 
 // @title Resource Server
