@@ -45,12 +45,7 @@ func (s *Server) loadRoute(ctx *fiber.Ctx) error {
 		return sendError(ctx, err, 404)
 	}
 
-	b, err := json.Marshal(r)
-	if err != nil {
-		return sendError(ctx, err, 500)
-	}
-
-	return ctx.Send(b)
+	return ctx.JSON(r)
 }
 
 // @Summary Loading multiple images and getting its name as a map
@@ -76,10 +71,5 @@ func (s *Server) loadBatchRoute(ctx *fiber.Ctx) error {
 		return sendError(ctx, err, 404)
 	}
 
-	b, err := json.Marshal(r)
-	if err != nil {
-		return sendError(ctx, err, 500)
-	}
-
-	return ctx.Send(b)
+	return ctx.JSON(r)
 }

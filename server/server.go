@@ -26,8 +26,10 @@ func (s *Server) InitRoutes() error {
 	}))
 
 	s.app.Static("/", s.loadServingRoot())
+
 	s.app.Get("/docs/*", swagger.Handler)
 	s.app.Get("/load", s.loadRoute)
+
 	s.app.Post("/load/batch", s.loadBatchRoute)
 
 	return nil
