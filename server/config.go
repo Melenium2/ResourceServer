@@ -3,7 +3,7 @@ package server
 var (
 	DefaultPort       = ":11111"
 	DefaultSaveFolder = "./resources"
-	DefaultWorkers    = 5
+	DefaultWorkers    = 4
 )
 
 type Config struct {

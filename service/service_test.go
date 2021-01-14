@@ -41,6 +41,7 @@ var pictures = []string{
 }
 
 var picturesAlternative = []string{
+	"https://is1-ssl.mzstatic.com/image/thumb/Purple124/v4/91/95/19/919519d3-52d3-df40-5fb5-3fb3aa3d6f18/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/1024x1024w.png",
 	"https://is1-ssl.mzstatic.com/image/thumb/Purple124/v4/47/67/e0/4767e03c-a8cd-c5f3-a4d0-899c83740bad/pr_source.png/2048x2732w.png",
 	"https://is3-ssl.mzstatic.com/image/thumb/Purple124/v4/1f/fa/10/1ffa10ba-01db-015e-eb30-678770d1a04f/pr_source.png/2048x2732w.png",
 	"https://is4-ssl.mzstatic.com/image/thumb/Purple114/v4/04/e9/d4/04e9d4f5-7cf1-b669-5973-28a4eb770a0f/pr_source.png/2048x2732w.png",
@@ -66,7 +67,7 @@ func TestResourceService_Load_ShouldLoadSingleResourceToLocalFolder(t *testing.T
 			e:    false,
 		},
 		{
-			name: "load alternative pictures consistently",
+			name: "load alternative pictures consistently ",
 			urls: picturesAlternative,
 			e:    false,
 		},
@@ -102,12 +103,12 @@ func TestResourceService_LoadBatch_ShouldLoadSingleReportWithConcurrency(t *test
 		e    bool
 	} {
 		{
-			name: "load pictures consistently",
+			name: "load batch pictures consistently",
 			urls: pictures,
 			e:    false,
 		},
 		{
-			name: "load alternative pictures consistently",
+			name: "load batch alternative pictures consistently",
 			urls: picturesAlternative,
 			e:    false,
 		},

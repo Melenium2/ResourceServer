@@ -52,14 +52,14 @@ func (r *ResourceService) Load(ctx context.Context, link string) (string, error)
 }
 
 // LoadBatch function loads an slice of urls with concurrency
-func (r *ResourceService) LoadBatch(ctx context.Context, link []string) (map[string]string, error) {
-	if len(link) == 0 {
+func (r *ResourceService) LoadBatch(ctx context.Context, links []string) (map[string]string, error) {
+	if len(links) == 0 {
 		return nil, errors.New("empty links")
 	}
 	done := make(chan struct{}, 1)
 	result := make(map[string]string)
 
-	for _, re := range link {
+	for _, re := range links {
 		if err := r.sem.Acquire(ctx, 1); err != nil {
 			log.Printf("failed to acquire semaphore")
 			return nil, err
@@ -73,7 +73,7 @@ func (r *ResourceService) LoadBatch(ctx context.Context, link []string) (map[str
 			} else {
 				result[next] = filename
 			}
-			if len(result) >= len(link) {
+			if len(result) >= len(links) {
 				done <- struct{}{}
 			}
 		}(re)
@@ -81,6 +81,45 @@ func (r *ResourceService) LoadBatch(ctx context.Context, link []string) (map[str
 
 	<-done
 
+	// TEMP
+	//type Pair struct {
+	//	Key   string
+	//	Value string
+	//}
+
+	//defer func() {
+	//	close(semaphoreChan)
+	//	close(resultsChan)
+	//}()
+	//
+	//for i, url := range links {
+	//
+	//	go func(i int, url string) {
+	//
+	//		semaphoreChan <- struct{}{}
+	//
+	//		// Нужно упорядочить скрины
+	//		res, err := r.Load(ctx, url)
+	//		if err != nil {
+	//			resultsChan <- Pair{Key: url, Value: url}
+	//		} else {
+	//			resultsChan <- Pair{Key: url, Value: res}
+	//		}
+
+	//		<-semaphoreChan
+	//
+	//	}(i, url)
+	//}
+	//results := make(map[string]string)
+	//
+	//for {
+	//	result := <-resultsChan
+	//	results[result.Key] = result.Value
+	//
+	//	if len(results) == len(links) {
+	//		break
+	//	}
+	//}
 	return result, nil
 }
 

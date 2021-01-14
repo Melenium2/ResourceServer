@@ -18,7 +18,7 @@ type Server struct {
 func (s *Server) InitRoutes() error {
 	s.app.Use(cors.New())
 	s.app.Use(logger.New(logger.Config{
-		Format:     "${cyan}[${time}] ${white}${pid} ${red}${status} ${blue}[${method}] ${white}${path}\n",
+		Format:     "${cyan}[${time}] ${white}${pid} ${red}${status} ${blue}[${method}] ${white}${path} ${red}${latency}\n",
 		TimeFormat: "02-Jan-2006",
 		TimeZone:   "UTC",
 	}))
