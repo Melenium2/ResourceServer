@@ -77,7 +77,7 @@ func (r *ResourceService) LoadBatch(ctx context.Context, links []string) (map[st
 			if err != nil {
 				result[next] = "none"
 			} else {
-				result[next] = filename
+				result[next] = "/content/" + filename
 			}
 			if len(result) >= len(links) {
 				done <- struct{}{}
