@@ -14,7 +14,7 @@ import (
 // На Samurai нужно сделать тест. Возвращается ли ошибка после всех ретраев
 
 // @title Resource Server
-// @version 0.3
+// @version 1.0
 // @description Server for downloading images from a URL in a local folder. With the further ability to receive these images by a special assigned name.
 
 // @contact.name Melenium2
