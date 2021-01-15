@@ -11,8 +11,12 @@ import (
 	"os/signal"
 )
 
+// Научить возвращать адресс сервера и записывать его вместе с названием изображения
+//		либо делать жто на клиенте, (хотя это не оч)
+// На Samurai нужно сделать тест. Возвращается ли ошибка после всех ретраев
+
 // @title Resource Server
-// @version 0.2
+// @version 0.3
 // @description Server for downloading images from a URL in a local folder. With the further ability to receive these images by a special assigned name.
 
 // @contact.name Melenium2

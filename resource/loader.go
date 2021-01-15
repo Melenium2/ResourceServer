@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -32,17 +33,15 @@ func Load(topath, rawurl string) (string, error) {
 		return "", fmt.Errorf("url %s response with %d code", rawurl, resp.StatusCode)
 	}
 
-
-	defer resp.Body.Close()
-
 	if err = Save(path.Join(topath, hashedname), resp.Body); err != nil {
-		return "", err
-	}
+			return "", err
+		}
 
 	return hashedname, nil
 }
 
-// Save copy io.ReadCloser body to file
+// Save copy io.ReadCloser body to file async
+// PS: if there are problems, maybe put a semaphore
 func Save(filepath string, body io.ReadCloser) error {
 	file, err := os.Create(filepath)
 	if err != nil {
@@ -50,9 +49,11 @@ func Save(filepath string, body io.ReadCloser) error {
 	}
 
 	defer file.Close()
+	defer body.Close()
 
 	_, err = io.Copy(file, body)
 	if err != nil {
+		log.Printf("error while copy request body to file: %s, error: %v\n", filepath, err)
 		return err
 	}
 
@@ -64,7 +65,6 @@ func hash(str, salt string) string {
 	strWithTime := fmt.Sprintf("%s_%s", str, salt)
 	hasher := md5.New()
 	hasher.Write([]byte(strWithTime))
-
 	return hex.EncodeToString(hasher.Sum(nil))
 }
 

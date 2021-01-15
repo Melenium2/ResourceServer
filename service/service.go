@@ -51,6 +51,12 @@ func (r *ResourceService) Load(ctx context.Context, link string) (string, error)
 	return filename, nil
 }
 
+// Если когда то понадобиться работать на скорость а не на результат,
+// то можно попробывать генерить именна файлов на будущее прямо тут
+// а в мтод отдавать уже и урл и название файла в который нужно будет
+// записать и там все это крутить в горутине. Ну и в случае неудачи
+// получается удалять сломанный файл и ничего не делать. Он будет недоступен.
+
 // LoadBatch function loads an slice of urls with concurrency
 func (r *ResourceService) LoadBatch(ctx context.Context, links []string) (map[string]string, error) {
 	if len(links) == 0 {
@@ -81,45 +87,6 @@ func (r *ResourceService) LoadBatch(ctx context.Context, links []string) (map[st
 
 	<-done
 
-	// TEMP
-	//type Pair struct {
-	//	Key   string
-	//	Value string
-	//}
-
-	//defer func() {
-	//	close(semaphoreChan)
-	//	close(resultsChan)
-	//}()
-	//
-	//for i, url := range links {
-	//
-	//	go func(i int, url string) {
-	//
-	//		semaphoreChan <- struct{}{}
-	//
-	//		// Нужно упорядочить скрины
-	//		res, err := r.Load(ctx, url)
-	//		if err != nil {
-	//			resultsChan <- Pair{Key: url, Value: url}
-	//		} else {
-	//			resultsChan <- Pair{Key: url, Value: res}
-	//		}
-
-	//		<-semaphoreChan
-	//
-	//	}(i, url)
-	//}
-	//results := make(map[string]string)
-	//
-	//for {
-	//	result := <-resultsChan
-	//	results[result.Key] = result.Value
-	//
-	//	if len(results) == len(links) {
-	//		break
-	//	}
-	//}
 	return result, nil
 }
 
