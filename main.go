@@ -11,8 +11,6 @@ import (
 	"os/signal"
 )
 
-// На Samurai нужно сделать тест. Возвращается ли ошибка после всех ретраев
-
 // @title Resource Server
 // @version 1.0
 // @description Server for downloading images from a URL in a local folder. With the further ability to receive these images by a special assigned name.
@@ -47,7 +45,7 @@ func main() {
 	go func() {
 		c := make(chan os.Signal, 1)
 		signal.Notify(c, os.Interrupt)
-		_ = <-c
+		<-c
 		_ = serv.Shutdown()
 	}()
 

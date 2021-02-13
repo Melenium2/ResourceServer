@@ -34,7 +34,7 @@ func TestSave_ShouldPanicIfReaderIsempty(t *testing.T) {
 	filepath := path.Join(folder, "123.txt")
 
 	assert.Panics(t, func() {
-		resource.Save(filepath, nil)
+		_ = resource.Save(filepath, nil)
 	})
 
 	assert.NoError(t, helper_removeTestFile(filepath))

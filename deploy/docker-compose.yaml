@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+    resource_server:
+        build: .
+        container_name: resource_server
+        environment:
+            - production=true
+        ports:
+            - "11111:11111"
+        volumes:
+            - "/usr/volumes/ResourceServer:/go/bin/resources"

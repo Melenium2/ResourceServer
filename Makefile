@@ -1,5 +1,10 @@
 GOBIN=./cmd/main
 
+## lint: find issues in code
+lint:
+	golangci-lint run ./...
+
+
 ## build: Build go binary
 build:
 	go build -o $(GOBIN)

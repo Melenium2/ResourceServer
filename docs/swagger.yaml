@@ -6,7 +6,7 @@ info:
   description: Server for downloading images from a URL in a local folder. With the
     further ability to receive these images by a special assigned name.
   title: Resource Server
-  version: "0.2"
+  version: "1.0"
 paths:
   /content/{filename}:
     get:

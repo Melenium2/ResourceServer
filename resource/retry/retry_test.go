@@ -1,7 +1,7 @@
 package retry_test
 
 import (
-	"Samurai/internal/pkg/retry"
+	"ResourceServer/resource/retry"
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"

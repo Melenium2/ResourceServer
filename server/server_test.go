@@ -35,19 +35,10 @@ var pictures = []string{
 	"https://play-lh.googleusercontent.com/-lidNEWNyB5YDUcoeHXrAFyvoZKMXPlwlMhCka_-oT-2qqzfCMm_gcdkCTCN5Z1Vbw",
 }
 
-var picturesAlternative = []string{
-	"https://is1-ssl.mzstatic.com/image/thumb/Purple124/v4/47/67/e0/4767e03c-a8cd-c5f3-a4d0-899c83740bad/pr_source.png/2048x2732w.png",
-	"https://is3-ssl.mzstatic.com/image/thumb/Purple124/v4/1f/fa/10/1ffa10ba-01db-015e-eb30-678770d1a04f/pr_source.png/2048x2732w.png",
-	"https://is4-ssl.mzstatic.com/image/thumb/Purple114/v4/04/e9/d4/04e9d4f5-7cf1-b669-5973-28a4eb770a0f/pr_source.png/2048x2732w.png",
-	"https://is3-ssl.mzstatic.com/image/thumb/Purple124/v4/91/3e/7b/913e7be3-4616-6de5-957a-b5f11b2b68ba/pr_source.png/2048x2732w.png",
-	"https://is3-ssl.mzstatic.com/image/thumb/Purple114/v4/33/f9/39/33f939dc-bba3-7894-5213-236ef967678f/pr_source.png/2048x2732w.png",
-	"https://is3-ssl.mzstatic.com/image/thumb/Purple124/v4/59/06/d0/5906d02e-b301-c9d3-edfd-5344d4c26da6/pr_source.png/2048x2732w.png",
-}
-
 func TestServer(t *testing.T) {
 
 	wrongItemPictures := make([]string, len(pictures))
-	for i, v := range pictures {
+	for i, v := range pictures { //nolint:gosimple
 		wrongItemPictures[i] = v
 	}
 	wrongItemPictures[3] = "https://play-lh.googleusercontent.com/5Gu108fDTyz1RGAs09ggwzZ6GgAx8C-AXVVGCcznMQCg98Dr_5pAcK3O3eS123123123"
@@ -138,7 +129,7 @@ func TestServer(t *testing.T) {
 				req.URL.RawQuery = q.Encode()
 			}
 
-			res, err := server.app.Test(req, -1)
+			res, _ := server.app.Test(req, -1)
 
 			assert.Equal(t, test.expectedCode, res.StatusCode)
 			bodyResp, err := ioutil.ReadAll(res.Body)

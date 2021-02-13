@@ -1,0 +1,42 @@
+# golang alpine 1.15.3
+FROM golang@sha256:6bdf3cc6cb0509e860e626a339c19b7e842efb8444960bb72d654e33607c34f5 as builder
+
+RUN apk update && apk add --no-cache git ca-certificates tzdata make && update-ca-certificates
+
+ENV USER=appuser
+ENV UID=10001
+
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/nonexistent" \
+    --shell "/sbin/nologin" \
+    --no-create-home \
+    --uid "${UID}" \
+    "${USER}"
+
+WORKDIR $GOPATH/src/nani
+COPY . .
+
+ENV github="https://github.com/Melenium2/ResourceServer"
+ENV appname=ResourceServer
+
+RUN git clone ${github}
+RUN make -C $appname deploy
+RUN ls .
+#
+RUN rm /go/bin/$appname
+#
+RUN mkdir /go/bin/resources
+RUN chmod 777 /go/bin/resources
+RUN ls /go/bin
+
+FROM alpine:3
+
+COPY --from=builder /go/bin /go/bin
+
+WORKDIR /go/bin
+
+CMD [ "/go/bin/main" ]
+
+

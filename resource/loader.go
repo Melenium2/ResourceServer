@@ -64,7 +64,7 @@ func Save(filepath string, body io.ReadCloser) error {
 func hash(str, salt string) string {
 	strWithTime := fmt.Sprintf("%s_%s", str, salt)
 	hasher := md5.New()
-	hasher.Write([]byte(strWithTime))
+	_, _ = hasher.Write([]byte(strWithTime))
 	return hex.EncodeToString(hasher.Sum(nil))
 }
 
